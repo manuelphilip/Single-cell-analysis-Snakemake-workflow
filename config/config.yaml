@@ -1,0 +1,15 @@
+samples: config/samples.tsv
+units: config/units.tsv
+
+
+resources:
+  ref:
+    # cellranger species name
+    species: homo_sapiens
+    # cellranger release version
+    release: "2020"
+    # cell ranger genome build
+    build: GRCh38
+
+params:
+  cellranger: "--id"
