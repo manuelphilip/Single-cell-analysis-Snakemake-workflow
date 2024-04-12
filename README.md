@@ -14,5 +14,4 @@ The usage of this workflow is described in the [Snakemake Workflow Catalog](http
 If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) <Single-cell-analysis-Snakemake-workflow>sitory and its DOI (see above).
 
 # Description
- A Snakemake workflow designed to analyse single cell data from cell ranger output. The workflow expects the cell ranger output which contains per sample bc_matrix (raw and filtered) under the `~/sample_name/outs` folder.
-
+ A Snakemake workflow designed to analyse single cell data from cell ranger output. The workflow expects the cell ranger output which contains per sample bc_matrix (raw and filtered) under the `~/sample_name/outs` folder. The details steps are as follows:
