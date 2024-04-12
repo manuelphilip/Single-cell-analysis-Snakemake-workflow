@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+  - genomedk
+dependencies:
+  - r-sccustomize = 2.1.2
+  - bioconductor-glmgampoi = 1.14.0

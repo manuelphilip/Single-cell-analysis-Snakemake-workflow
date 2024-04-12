@@ -1,2 +1,5 @@
-sample	condition	batch_effect
-SRR20020418	treated	batch1
+sample	condition	path
+p4_magel2_null_f	treatment	xxx
+p4_magel2_null_m	treatment	yyy
+p4_magel2_wt_f	control	
+p4_magel2_wt_m	control	

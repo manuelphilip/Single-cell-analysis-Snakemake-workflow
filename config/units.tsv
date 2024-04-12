@@ -1,2 +1,5 @@
 sample	path
-SRR20020418	fastq/
+p4_magel2_null_f	fastq/
+p4_magel2_null_m	
+p4_magel2_wt_f	
+p4_magel2_wt_m	

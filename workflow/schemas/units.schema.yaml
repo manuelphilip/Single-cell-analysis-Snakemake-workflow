@@ -10,4 +10,3 @@ properties:
     description: path of the fastq files
 required:
   - sample
-  - path

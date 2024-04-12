@@ -16,7 +16,7 @@ container: "docker://continuumio/miniconda3"
 
 include: "rules/common.smk"
 include: "rules/ref.smk"
-include: "rules/cellranger.smk"
+include: "rules/preprocessing.smk"
 
 
 rule all:

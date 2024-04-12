@@ -83,10 +83,5 @@ def all_input(wildcards):
 
     wanted_input = []
 
-    wanted_input.extend(
-        expand(
-            ["results/cellranger_count_out/{unit.sample}/"],
-            unit=units[["sample"]].itertuples(),
-        )
-    )
+    wanted_input = "results/sleuth/seurat_object.rds"
     return wanted_input

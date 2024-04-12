@@ -1,3 +1,6 @@
+# This workflow executes from cell ranger out put with the path defines as follows
+# ~/sample_name/outs/
+
 samples: config/samples.tsv
 units: config/units.tsv
 
@@ -10,6 +13,8 @@ resources:
     release: "2020"
     # cell ranger genome build
     build: GRCh38
+  path: "~/Documents/Single_cell_Data_From_Globus/10x_analysis_9709-FA"
+
 
 params:
   cellranger: "--id"
