@@ -16,5 +16,17 @@ resources:
   path: "~/Documents/Single_cell_Data_From_Globus/10x_analysis_9709-FA"
 
 
-params:
-  cellranger: "--id"
+diffexp:
+  # samples to exclude (e.g. outliers due to technical problems)
+  exclude:
+  # model for sleuth differential expression analysis
+  models:
+    model_X:
+      full: ~condition + batch_effect
+      reduced: ~batch_effect
+      # Binary valued covariate that shall be used for fold change/effect size
+      # based downstream analyses.
+      primary_variable: condition
+      # base level of the primary variable (will be considered as denominator
+      # in the fold change/effect size estimation).
+      base_level: untreated
