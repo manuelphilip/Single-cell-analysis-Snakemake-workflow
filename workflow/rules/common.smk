@@ -35,7 +35,11 @@ report: "../report/workflow.rst"
 ##### wildcard constraints #####
 
 
-sample = "|".join(samples.index)
+wildcard_constraints:
+    sample="|".join(samples.index),
+    model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
+
+
 # model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
 
 ####### helpers ###########
@@ -83,5 +87,15 @@ def all_input(wildcards):
 
     wanted_input = []
 
-    wanted_input = "results/sleuth/seurat_object.rds"
+    wanted_input.extend(
+        expand(
+            [
+                "results/seurat/{model}.seurat_objt.rds",
+                "results/plots/{model}.QC-Vln-plot.pdf",
+                "results/plots/{model}.Highly_variable_features-plot.pdf",
+                "results/plots/{model}.Elbow-plot.pdf",
+            ],
+            model=config["diffexp"]["models"],
+        )
+    )
     return wanted_input

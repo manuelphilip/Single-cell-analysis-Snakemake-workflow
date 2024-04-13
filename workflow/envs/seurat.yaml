@@ -6,3 +6,4 @@ channels:
 dependencies:
   - r-sccustomize = 2.1.2
   - bioconductor-glmgampoi = 1.14.0
+  - r-ggplot2 =3.4.4
