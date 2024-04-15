@@ -1,4 +1,4 @@
-# This workflow executes from cell ranger out put with the path defines as follows
+# This workflow executes from cell ranger output with the path defines as follows
 # ~/sample_name/outs/
 
 samples: config/samples.tsv
@@ -8,22 +8,21 @@ units: config/units.tsv
 resources:
   ref:
     # cellranger species name
-    species: homo_sapiens
+    species: Mus_musculus
     # cellranger release version
     release: "2020"
     # cell ranger genome build
-    build: GRCh38
+    build: GRCm38
   path: "~/Documents/Single_cell_Data_From_Globus/10x_analysis_9709-FA"
 
 
 diffexp:
   # samples to exclude (e.g. outliers due to technical problems)
   exclude:
-  # model for sleuth differential expression analysis
+  # model for seurat differential expression analysis
   models:
     model_X:
-      full: ~condition + batch_effect
-      reduced: ~batch_effect
+      full: ~condition
       # Binary valued covariate that shall be used for fold change/effect size
       # based downstream analyses.
       primary_variable: condition
