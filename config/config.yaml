@@ -1,8 +1,7 @@
-# This workflow executes from cell ranger output with the path defines as follows
+# This workflow executes from cell ranger out put with the path defines as follows
 # ~/sample_name/outs/
 
 samples: config/samples.tsv
-units: config/units.tsv
 
 
 resources:
