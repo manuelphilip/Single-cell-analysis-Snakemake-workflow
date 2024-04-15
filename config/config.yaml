@@ -1,6 +1,5 @@
 # This workflow executes from cell ranger out put with the path defines as follows
 # ~/sample_name/outs/
-
 samples: config/samples.tsv
 
 
@@ -13,6 +12,12 @@ resources:
     # cell ranger genome build
     build: GRCm38
   path: "~/Documents/Single_cell_Data_From_Globus/10x_analysis_9709-FA"
+
+
+clustering:
+  activate: true
+  dim: 20
+  resolution: 0.5
 
 
 diffexp:

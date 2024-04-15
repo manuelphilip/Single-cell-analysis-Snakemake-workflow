@@ -22,10 +22,10 @@ def drop_unique_cols(df):
 samples = drop_unique_cols(samples)
 validate(samples, schema="../schemas/samples.schema.yaml")
 
-units = pd.read_csv(config["units"], dtype=str, sep="\t", comment="#").set_index(
-    ["sample", "path"], drop=False
-)
-validate(units, schema="../schemas/units.schema.yaml")
+#units = pd.read_csv(config["units"], dtype=str, sep="\t", comment="#").set_index(
+#    ["sample", "path"], drop=False
+#)
+#validate(units, schema="../schemas/units.schema.yaml")
 # print(units)
 
 
@@ -34,12 +34,9 @@ report: "../report/workflow.rst"
 
 ##### wildcard constraints #####
 
-
 wildcard_constraints:
-    sample="|".join(samples.index),
-    model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
-
-
+    sample = "|".join(samples.index),
+    model="|".join(list(config["diffexp"].get("models", [])) + ["all"])
 # model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
 
 ####### helpers ###########
@@ -64,11 +61,11 @@ check_config()
 """
 
 
-def get_fastqs(wildcards):
-    """Determine whether unit is single-end."""
-    fastq_path = units.loc[(sample), "path"]
+#def get_fastqs(wildcards):
+#    """Determine whether unit is single-end."""
+#    fastq_path = units.loc[(sample), "path"]
 
-    return fastq_path
+#    return fastq_path
 
 
 def get_transcriptome(wildcards):
@@ -79,7 +76,6 @@ def get_transcriptome(wildcards):
     )
     return transcriptome
 
-
 def all_input(wildcards):
     """
     Function defining all requested inputs for the rule all (below).
@@ -89,13 +85,32 @@ def all_input(wildcards):
 
     wanted_input.extend(
         expand(
-            [
-                "results/seurat/{model}.seurat_objt.rds",
-                "results/plots/{model}.QC-Vln-plot.pdf",
-                "results/plots/{model}.Highly_variable_features-plot.pdf",
-                "results/plots/{model}.Elbow-plot.pdf",
-            ],
-            model=config["diffexp"]["models"],
+            ["results/seurat/{model}.seurat_objt.rds",
+            "results/plots/preprocessing/{model}.QC-Vln-plot.pdf",
+            "results/plots/preprocessing/{model}.Highly_variable_features-plot.pdf",
+            "results/plots/preprocessing/{model}.Elbow-plot.pdf"
+        ],
+        model=config["diffexp"]["models"],
+        )
+    )
+    if config["clustering"]["activate"]:
+        wanted_input.extend(
+            expand(
+                "results/plots/clustering/{model}.Dim-plot.pdf",
+                model=config["diffexp"]["models"],    
+            )
+        
+        )
+    wanted_input.extend(
+        expand(
+            ["results/tables/diffexp/{model}.diff-exp-genes.tsv",
+            "results/tables/diffexp/{model}.top-10-markers.tsv",
+            "results/plots/diffexp/{model}.Features-plot.pdf",
+            "results/plots/diffexp/{model}.Heatmap-plot.pdf",
+            "results/plots/diffexp/{model}.Top-features-Vln-plot.pdf",
+
+        ],
+        model=config["diffexp"]["models"],
         )
     )
     return wanted_input

@@ -39,3 +39,4 @@ dev.off()
 pdf(file = snakemake@output[["elbow_plot"]])
 elbow_plot
 dev.off()
+saveRDS(seurat_obj, file = snakemake@output[["sleuth_object"]])

@@ -29,5 +29,4 @@ properties:
           - build
 required:
   - samples
-  - units
   - resources
