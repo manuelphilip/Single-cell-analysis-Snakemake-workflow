@@ -18,6 +18,7 @@ include: "rules/common.smk"
 include: "rules/ref.smk"
 include: "rules/preprocessing.smk"
 include: "rules/clustering.smk"
+include: "rules/diff_exp_marker_iden.smk"
 
 
 rule all:

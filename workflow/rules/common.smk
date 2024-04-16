@@ -36,30 +36,10 @@ report: "../report/workflow.rst"
 
 wildcard_constraints:
     sample = "|".join(samples.index),
-    model="|".join(list(config["diffexp"].get("models", [])) + ["all"])
+    model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
 # model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
 
 ####### helpers ###########
-"""
-
-def check_config():
-    representative_transcripts_keywords = ["canonical", "mostsignificant"]
-    representative_transcripts = config["resources"]["ref"][
-        "representative_transcripts"
-    ]
-    if representative_transcripts not in representative_transcripts_keywords:
-        if not os.path.exists(representative_transcripts):
-            raise ValueError(
-                f"Invalid value given for resources/ref/representative_transcripts in "
-                "configuration. Must be 'canonical', 'mostsignificant' or valid path, "
-                "but {representative_transcripts} does not exist or is not readable."
-            )
-
-
-check_config()
-
-"""
-
 
 #def get_fastqs(wildcards):
 #    """Determine whether unit is single-end."""
@@ -103,14 +83,13 @@ def all_input(wildcards):
         )
     wanted_input.extend(
         expand(
-            [#"results/tables/diffexp/{model}.diff-exp-genes.tsv",
-            #"results/tables/diffexp/{model}.top-10-markers.tsv",
-            #"results/plots/diffexp/{model}.Features-plot.pdf",
-            "results/plots/diffexp/{model}.Heatmap-plot.pdf",
-            #"results/plots/diffexp/{model}.Top-features-Vln-plot.pdf",
-            "results/seurat/diffexp/{model}.seurat_objt.rds",
-
-        ],
+            [#"results/tables/diffexp/{model}.{unit.sample}.diff-exp-genes.tsv",
+            "results/tables/diffexp/{model}.{unit.sample}.top-10-markers.tsv",
+            #"results/plots/diffexp/{unit.sample}.{model}.Features-plot.pdf",
+            "results/plots/diffexp/{unit.sample}.{model}.Heatmap-plot.pdf",
+            #"results/plots/diffexp/{unit.sample}.{model}.Top-features-Vln-plot.pdf"
+            ],
+        unit=samples[["sample"]].itertuples(),
         model=config["diffexp"]["models"],
         )
     )

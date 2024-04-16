@@ -1,10 +1,30 @@
-rule clustering:
+rule perform_clustering_and_dim_reduction:
     input:
-       sleuth_object="results/seurat/preprocessing/{model}.seurat_objt.rds",
+       sleuth_object="results/seurat/{model}.seurat_objt.rds",
     output:
         sleuth_object="results/seurat/clustering/{model}.seurat_objt.rds",
+    resources:
+        cpus_per_task=20,
+        mem_mb=94000
+    params:
+        dims=config["clustering"]["dim"],
+        resolution=config["clustering"]["resolution"]
+    conda:
+        "../envs/seurat.yaml"
+    log:
+        "logs/seurat/{model}.seurat_object.log",
+    script:
+        "../scripts/clustr-dim-red.R"
+
+
+rule plot_clustering_dim_reduction_plots:
+    input:
+       sleuth_object="results/seurat/clustering/{model}.seurat_objt.rds",
+    output:
         dim_plot="results/plots/clustering/{model}.Dim-plot.pdf",
-    threads:20
+    resources:
+        cpus_per_task=20,
+        mem_mb=94000
     params:
         dims=config["clustering"]["dim"],
         resolution=config["clustering"]["resolution"]
@@ -16,20 +36,3 @@ rule clustering:
         "../scripts/clustering.R"
 
 
-rule per_sam_diff_expr_and_marker_ident:
-    input:
-        sleuth_object="results/seurat/clustering/{model}.seurat_objt.rds",
-    output:
-        #all_markers="results/tables/diffexp/{model}.diff-exp-genes.tsv",
-        #top_10_markers ="results/tables/diffexp/{model}.top-10-markers.tsv",
-        #feature_plot="results/plots/diffexp/{model}.Features-plot.pdf",
-        heatmap="results/plots/diffexp/{model}.Heatmap-plot.pdf",
-        #Vln_plot="results/plots/diffexp/{model}.Top-features-Vln-plot.pdf",
-        sleuth_object="results/seurat/diffexp/{model}.seurat_objt.rds",
-    threads:20
-    conda:
-        "../envs/diff_exp.yaml"
-    log:
-        "logs/seurat/diffexp/{model}.per_sam_diff_expr_and_marker_ident.log",
-    script:
-        "../scripts/diff_exp_marker_genes.R"
