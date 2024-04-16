@@ -11,7 +11,7 @@ resources:
     release: "2020"
     # cell ranger genome build
     build: GRCm38
-  path: "~/Documents/Single_cell_Data_From_Globus/10x_analysis_9709-FA"
+  path: "/home/hd/hd_hd/hd_dr000/10x_analysis_9709-FA"
 
 
 clustering:

@@ -4,6 +4,7 @@ rule setup_seurat_object:
     output:
         sleuth_object="results/seurat/{model}.seurat_objt.rds",
         QC_vln_plot="results/plots/preprocessing/{model}.QC-Vln-plot.pdf",
+    threads:20
     params:
         path=config["resources"]["path"],
     conda:
@@ -21,6 +22,7 @@ rule normalization_and_dim_reduction:
         variable_features="results/plots/preprocessing/{model}.Highly_variable_features-plot.pdf",
         elbow_plot="results/plots/preprocessing/{model}.Elbow-plot.pdf",
         sleuth_object="results/seurat/preprocessing/{model}.seurat_objt.rds",
+    threads:20
     conda:
         "../envs/seurat.yaml"
     log:

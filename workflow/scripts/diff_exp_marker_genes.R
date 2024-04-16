@@ -6,6 +6,8 @@ sink(log, type="message")
 library(dplyr)
 library(scCustomize)
 library(ggplot2)
+library(devtools)
+install_github('immunogenomics/presto')
 
 seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
 
@@ -28,11 +30,10 @@ for (i in 1: length(seurat_obj)){
     slice_head(n = 10) %>%
     ungroup() -> top10_markers[[i]]
   heatmaps[[i]] <-
-    DoHeatmap(seurat_obj[[i]], features = top10$gene) + NoLegend()
+    DoHeatmap(seurat_obj[[i]], features = top10_markers$gene) + NoLegend()
 }
 
 pdf(file = snakemake@output[["heatmap"]])
 heatmaps
 dev.off()
-write
 saveRDS(seurat_obj, file = snakemake@output[["sleuth_object"]])

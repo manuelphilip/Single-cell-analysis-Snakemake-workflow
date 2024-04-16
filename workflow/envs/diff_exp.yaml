@@ -1,0 +1,10 @@
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+  - genomedk
+dependencies:
+  - r-sccustomize = 2.1.2
+  - r-ggplot2 =3.4.4
+  - r-presto = 1.0.0
+  - r-devtools = 2.4.5

@@ -103,11 +103,12 @@ def all_input(wildcards):
         )
     wanted_input.extend(
         expand(
-            ["results/tables/diffexp/{model}.diff-exp-genes.tsv",
-            "results/tables/diffexp/{model}.top-10-markers.tsv",
-            "results/plots/diffexp/{model}.Features-plot.pdf",
+            [#"results/tables/diffexp/{model}.diff-exp-genes.tsv",
+            #"results/tables/diffexp/{model}.top-10-markers.tsv",
+            #"results/plots/diffexp/{model}.Features-plot.pdf",
             "results/plots/diffexp/{model}.Heatmap-plot.pdf",
-            "results/plots/diffexp/{model}.Top-features-Vln-plot.pdf",
+            #"results/plots/diffexp/{model}.Top-features-Vln-plot.pdf",
+            "results/seurat/diffexp/{model}.seurat_objt.rds",
 
         ],
         model=config["diffexp"]["models"],
