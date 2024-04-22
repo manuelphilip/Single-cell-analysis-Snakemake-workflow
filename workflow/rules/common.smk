@@ -83,14 +83,37 @@ def all_input(wildcards):
         )
     wanted_input.extend(
         expand(
-            [#"results/tables/diffexp/{model}.{unit.sample}.diff-exp-genes.tsv",
+            ["results/tables/diffexp/{model}.{unit.sample}.diff-exp-genes.tsv",
             "results/tables/diffexp/{model}.{unit.sample}.top-10-markers.tsv",
-            #"results/plots/diffexp/{unit.sample}.{model}.Features-plot.pdf",
-            "results/plots/diffexp/{unit.sample}.{model}.Heatmap-plot.pdf",
-            #"results/plots/diffexp/{unit.sample}.{model}.Top-features-Vln-plot.pdf"
+            "results/plots/diffexp/{model}.{unit.sample}.Heatmap-plot.pdf",
             ],
         unit=samples[["sample"]].itertuples(),
         model=config["diffexp"]["models"],
         )
     )
+    if config["visualize_marker_expression"]["activate"]:
+        wanted_input.extend(
+            expand(
+                ["results/plots/diffexp/{model}.{unit.sample}.Top-features-Vln-plot.pdf",
+                "results/plots/diffexp/{model}.{unit.sample}.Features-plot.pdf",
+                "results/plots/celltype/{model}.{unit.sample}.Dim-plot.pdf"
+                ],
+                model=config["diffexp"]["models"],
+                unit=samples[["sample"]].itertuples(),
+
+            )
+        
+        )
+    if config["celltype_annotation"]["activate"]:
+        wanted_input.extend(
+            expand(
+                [
+                "results/plots/celltype/{model}.{unit.sample}.Dim-plot.pdf"
+                ],
+                model=config["diffexp"]["models"],
+                unit=samples[["sample"]].itertuples(),
+
+            )
+        
+        )
     return wanted_input

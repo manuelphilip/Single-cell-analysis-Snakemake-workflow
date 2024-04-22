@@ -5,7 +5,8 @@ rule perform_preprocessing:
         sleuth_object="results/seurat/{model}.seurat_objt.rds",
     resources:
         cpus_per_task=20,
-        mem_mb=94000
+        mem_mb=94000,
+        nodes=10
     params:
         path=config["resources"]["path"],
         clustering=config["clustering"]["activate"]
@@ -26,7 +27,8 @@ rule plot_preprocessing_plots:
         elbow_plot="results/plots/preprocessing/{model}.Elbow-plot.pdf",
     resources:
         cpus_per_task=20,
-        mem_mb=94000
+        mem_mb=94000,
+        nodes=5
     conda:
         "../envs/seurat.yaml"
     log:

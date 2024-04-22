@@ -11,30 +11,35 @@ install_github('immunogenomics/presto')
 
 seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
 
-feature_plots <- list()
-pos_markers <- list()
-all_markers <- list()
-top10_markers <- list()
-heatmaps <- list()
-vln_plots <- list()
+genes_of_interest <- c(snakemake@params[["genes_of_interest"]])
+sample <- snakemake@wildcards$sample
 
-for (i in 1: length(seurat_obj)){
-
-# find markers for every cluster compared to all remaining cells, report only the positive
-# ones
-  all_markers[[i]] <- FindAllMarkers(seurat_obj[[i]])
-  pos_markers[[i]] <- FindAllMarkers(seurat_obj[[i]], only.pos = TRUE)
-  pos_markers[[i]] %>%
+all_markers <- FindAllMarkers(seurat_obj[[sample]])
+write.csv(all_markers,
+          file = snakemake@output[["all_markers"]], quote = FALSE)
+  pos_markers <- FindAllMarkers(seurat_obj[[sample]], only.pos = TRUE)
+  pos_markers %>%
     group_by(cluster) %>%
     dplyr::filter(avg_log2FC > 1) %>%
     slice_head(n = 10) %>%
-    ungroup() -> top10_markers[[i]]
+    ungroup() -> top10_markers
+write.csv(top10_markers,
+          file = snakemake@output[["top_10_markers"]], quote = FALSE)
 
-  write.csv(top10_markers[[i]],
-            file = snakemake@output[["top_10_markers"]], quote = FALSE)
-  pdf(file = snakemake@output[["heatmap"]])
-  heatmaps[[i]] <-
-    DoHeatmap(seurat_obj[[i]], features = top10_markers$gene) + NoLegend()
-  dev.off()
+heatmap <-
+  DoHeatmap(seurat_obj[[sample]], features = top10_markers$gene) + NoLegend()
 
-}
+pdf(file = snakemake@output[["heatmap"]])
+heatmap
+dev.off()
+
+feature_plot <-
+  FeaturePlot(seurat_obj[[sample]],
+              features = genes_of_interest, label = TRUE)
+pdf(file = snakemake@output[["feature_plot"]])
+feature_plot
+dev.off()
+vln_plot <- VlnPlot(seurat_obj[[sample]], features = genes_of_interest)
+pdf(file = snakemake@output[["Vln_plot"]])
+vln_plot
+dev.off()

@@ -5,7 +5,8 @@ rule perform_clustering_and_dim_reduction:
         sleuth_object="results/seurat/clustering/{model}.seurat_objt.rds",
     resources:
         cpus_per_task=20,
-        mem_mb=94000
+        mem_mb=94000,
+        nodes=10
     params:
         dims=config["clustering"]["dim"],
         resolution=config["clustering"]["resolution"]
@@ -24,7 +25,8 @@ rule plot_clustering_dim_reduction_plots:
         dim_plot="results/plots/clustering/{model}.Dim-plot.pdf",
     resources:
         cpus_per_task=20,
-        mem_mb=94000
+        mem_mb=94000,
+        nodes=5
     params:
         dims=config["clustering"]["dim"],
         resolution=config["clustering"]["resolution"]
@@ -33,6 +35,6 @@ rule plot_clustering_dim_reduction_plots:
     log:
         "logs/seurat/clustering/{model}.clustering.log",
     script:
-        "../scripts/clustering.R"
+        "../scripts/plot-dimplot.R"
 
 

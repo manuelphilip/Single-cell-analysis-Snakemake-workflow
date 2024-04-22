@@ -3,10 +3,8 @@ sink(log)
 sink(log, type = "message")
 
 library(dplyr)
-library(Seurat)
-library(patchwork)
 library(scCustomize)
-
+library(ggplot2)
 model <- snakemake@params[["model"]]
 
 
@@ -17,7 +15,7 @@ vln_plot <- list()
 variable_features <- list()
 elbow_plot <- list()
 
-for (i in 1: length(seurat_obj)){
+for (i in 1:length(seurat_obj)) {
   vln_plot[[i]] <-
     VlnPlot(seurat_obj[[i]],
       features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3
@@ -27,13 +25,15 @@ for (i in 1: length(seurat_obj)){
 
   # plot variable features with and without labels
   plot1 <- VariableFeaturePlot(seurat_obj[[i]])
-  plot2 <- LabelPoints(plot = plot1,
-                        points = top10, repel = TRUE) +
+  plot2 <- LabelPoints(
+    plot = plot1,
+    points = top10, repel = TRUE
+  ) +
     labs(x = levels(seurat_obj[[i]]))
   variable_features[[i]] <- plot1 + plot2
-
+  elbow_plot[[i]] <- ElbowPlot(seurat_obj[[i]]) +
+    labs(x = levels(seurat_obj[[i]]))
 }
-
 
 pdf(file = snakemake@output[["QC_vln_plot"]])
 vln_plot

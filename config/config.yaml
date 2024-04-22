@@ -33,3 +33,13 @@ diffexp:
       # base level of the primary variable (will be considered as denominator
       # in the fold change/effect size estimation).
       base_level: untreated
+visualize_marker_expression:
+  activate: true
+  genes_of_interest:
+    - Itgam
+    - Aldhl1
+    - Pdgfra
+
+celltype_annotation:
+  activate: true
+  path: "/home/hd/hd_hd/hd_dr000/snakemake/Single-cell-analysis-Snakemake-workflow/Cell_types.csv"

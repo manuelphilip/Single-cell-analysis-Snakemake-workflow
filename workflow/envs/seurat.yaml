@@ -7,3 +7,5 @@ dependencies:
   - r-sccustomize = 2.1.2
   - bioconductor-glmgampoi = 1.14.0
   - r-ggplot2 =3.4.4
+  - r-stringr = 1.5.1
+  - r-tidyr = 1.3.1
