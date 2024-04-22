@@ -1,8 +1,6 @@
-# This workflow executes from cell ranger output with the path defines as follows
+# This workflow executes from cell ranger out put with the path defines as follows
 # ~/sample_name/outs/
-
 samples: config/samples.tsv
-units: config/units.tsv
 
 
 resources:
@@ -13,7 +11,13 @@ resources:
     release: "2020"
     # cell ranger genome build
     build: GRCm38
-  path: "~/Documents/Single_cell_Data_From_Globus/10x_analysis_9709-FA"
+  path: "/gpfs/bwfor/work/ws/hd_dr000-myws/10x_analysis_9709-FA"
+
+
+clustering:
+  activate: true
+  dim: 20
+  resolution: 0.5
 
 
 diffexp:
@@ -29,3 +33,13 @@ diffexp:
       # base level of the primary variable (will be considered as denominator
       # in the fold change/effect size estimation).
       base_level: untreated
+visualize_marker_expression:
+  activate: true
+  genes_of_interest:
+    - Itgam
+    - Aldhl1
+    - Pdgfra
+
+celltype_annotation:
+  activate: true
+  path: "/home/hd/hd_hd/hd_dr000/snakemake/Single-cell-analysis-Snakemake-workflow/Cell_types.csv"

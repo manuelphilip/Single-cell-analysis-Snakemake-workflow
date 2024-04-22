@@ -22,10 +22,10 @@ def drop_unique_cols(df):
 samples = drop_unique_cols(samples)
 validate(samples, schema="../schemas/samples.schema.yaml")
 
-units = pd.read_csv(config["units"], dtype=str, sep="\t", comment="#").set_index(
-    ["sample", "path"], drop=False
-)
-validate(units, schema="../schemas/units.schema.yaml")
+#units = pd.read_csv(config["units"], dtype=str, sep="\t", comment="#").set_index(
+#    ["sample", "path"], drop=False
+#)
+#validate(units, schema="../schemas/units.schema.yaml")
 # print(units)
 
 
@@ -34,41 +34,18 @@ report: "../report/workflow.rst"
 
 ##### wildcard constraints #####
 
-
 wildcard_constraints:
-    sample="|".join(samples.index),
+    sample = "|".join(samples.index),
     model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
-
-
 # model="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
 
 ####### helpers ###########
-"""
 
-def check_config():
-    representative_transcripts_keywords = ["canonical", "mostsignificant"]
-    representative_transcripts = config["resources"]["ref"][
-        "representative_transcripts"
-    ]
-    if representative_transcripts not in representative_transcripts_keywords:
-        if not os.path.exists(representative_transcripts):
-            raise ValueError(
-                f"Invalid value given for resources/ref/representative_transcripts in "
-                "configuration. Must be 'canonical', 'mostsignificant' or valid path, "
-                "but {representative_transcripts} does not exist or is not readable."
-            )
+#def get_fastqs(wildcards):
+#    """Determine whether unit is single-end."""
+#    fastq_path = units.loc[(sample), "path"]
 
-
-check_config()
-
-"""
-
-
-def get_fastqs(wildcards):
-    """Determine whether unit is single-end."""
-    fastq_path = units.loc[(sample), "path"]
-
-    return fastq_path
+#    return fastq_path
 
 
 def get_transcriptome(wildcards):
@@ -79,7 +56,6 @@ def get_transcriptome(wildcards):
     )
     return transcriptome
 
-
 def all_input(wildcards):
     """
     Function defining all requested inputs for the rule all (below).
@@ -89,13 +65,55 @@ def all_input(wildcards):
 
     wanted_input.extend(
         expand(
-            [
-                "results/seurat/{model}.seurat_objt.rds",
-                "results/plots/{model}.QC-Vln-plot.pdf",
-                "results/plots/{model}.Highly_variable_features-plot.pdf",
-                "results/plots/{model}.Elbow-plot.pdf",
-            ],
-            model=config["diffexp"]["models"],
+            ["results/seurat/{model}.seurat_objt.rds",
+            "results/plots/preprocessing/{model}.QC-Vln-plot.pdf",
+            "results/plots/preprocessing/{model}.Highly_variable_features-plot.pdf",
+            "results/plots/preprocessing/{model}.Elbow-plot.pdf"
+        ],
+        model=config["diffexp"]["models"],
         )
     )
+    if config["clustering"]["activate"]:
+        wanted_input.extend(
+            expand(
+                "results/plots/clustering/{model}.Dim-plot.pdf",
+                model=config["diffexp"]["models"],    
+            )
+        
+        )
+    wanted_input.extend(
+        expand(
+            ["results/tables/diffexp/{model}.{unit.sample}.diff-exp-genes.tsv",
+            "results/tables/diffexp/{model}.{unit.sample}.top-10-markers.tsv",
+            "results/plots/diffexp/{model}.{unit.sample}.Heatmap-plot.pdf",
+            ],
+        unit=samples[["sample"]].itertuples(),
+        model=config["diffexp"]["models"],
+        )
+    )
+    if config["visualize_marker_expression"]["activate"]:
+        wanted_input.extend(
+            expand(
+                ["results/plots/diffexp/{model}.{unit.sample}.Top-features-Vln-plot.pdf",
+                "results/plots/diffexp/{model}.{unit.sample}.Features-plot.pdf",
+                "results/plots/celltype/{model}.{unit.sample}.Dim-plot.pdf"
+                ],
+                model=config["diffexp"]["models"],
+                unit=samples[["sample"]].itertuples(),
+
+            )
+        
+        )
+    if config["celltype_annotation"]["activate"]:
+        wanted_input.extend(
+            expand(
+                [
+                "results/plots/celltype/{model}.{unit.sample}.Dim-plot.pdf"
+                ],
+                model=config["diffexp"]["models"],
+                unit=samples[["sample"]].itertuples(),
+
+            )
+        
+        )
     return wanted_input

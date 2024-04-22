@@ -1,28 +1,39 @@
-rule setup_seurat_object:
+rule perform_preprocessing:
     input:
         samples="config/samples.tsv",
     output:
         sleuth_object="results/seurat/{model}.seurat_objt.rds",
-        QC_vln_plot="results/plots/{model}.QC-Vln-plot.pdf",
+    resources:
+        cpus_per_task=20,
+        mem_mb=94000,
+        nodes=10
     params:
         path=config["resources"]["path"],
+        clustering=config["clustering"]["activate"]
     conda:
         "../envs/seurat.yaml"
     log:
         "logs/seurat/{model}.seurat_object.log",
     script:
-        "../scripts/Preprocessing.R"
+        "../scripts/preprocessing.R"
 
 
-rule normalization_and_dim_reduction:
+rule plot_preprocessing_plots:
     input:
         sleuth_object="results/seurat/{model}.seurat_objt.rds",
     output:
-        variable_features="results/plots/{model}.Highly_variable_features-plot.pdf",
-        elbow_plot="results/plots/{model}.Elbow-plot.pdf",
+        QC_vln_plot="results/plots/preprocessing/{model}.QC-Vln-plot.pdf",
+        variable_features="results/plots/preprocessing/{model}.Highly_variable_features-plot.pdf",
+        elbow_plot="results/plots/preprocessing/{model}.Elbow-plot.pdf",
+    resources:
+        cpus_per_task=20,
+        mem_mb=94000,
+        nodes=5
     conda:
         "../envs/seurat.yaml"
     log:
-        "logs/seurat/{model}.highly_variable_features.log",
+        "logs/seurat/{model}.QC-Vln-plot.log",
     script:
-        "../scripts/Normalization_dim_red.R"
+        "../scripts/Plot_preprocessing_plots.R"
+
+

@@ -5,7 +5,6 @@ channels:
   - genomedk
 dependencies:
   - r-sccustomize = 2.1.2
-  - bioconductor-glmgampoi = 1.14.0
   - r-ggplot2 =3.4.4
-  - r-stringr = 1.5.1
-  - r-tidyr = 1.3.1
+  - r-presto = 1.0.0
+  - r-devtools = 2.4.5
