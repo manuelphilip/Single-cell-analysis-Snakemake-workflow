@@ -9,7 +9,7 @@ library(scCustomize)
 library(ggplot2)
 library(tidyr)
 
-seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
+seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
 sample <- snakemake@wildcards$sample
 
 file_celltype <-
@@ -19,13 +19,6 @@ top_10_markers <-
   read.csv(snakemake@input[["top_10_markers"]], sep = ",", header = TRUE)
 
 names(file_celltype) <- c("gene", "cell_type")
-#names(top_10_markers) <-
-#  c("SL.No", "p_val", "avg_log2FC", "pct.1",
-#    "pct.2", "p_val_adj", "cluster", "gene")
-
-print(names(file_celltype))
-print(head(top_10_markers))
-print(names(top_10_markers))
 
 file_celltype$gene <- str_to_title(file_celltype$gene)
 top_10_markers <-
@@ -40,12 +33,8 @@ cell_type_markers <- top_10_markers %>%
 
 new_cluster_ids <- c(cell_type_markers$cell_type)
 
-print(new_cluster_ids)
-print(levels(seurat_obj[[sample]]))
-
 names(new_cluster_ids) <- levels(seurat_obj[[sample]])
 seurat_obj[[sample]] <- RenameIdents(seurat_obj[[sample]], new_cluster_ids)
-
 
 
 pdf(file = snakemake@output[["dim_plot"]])

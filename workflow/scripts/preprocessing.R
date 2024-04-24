@@ -25,13 +25,17 @@ do_preprocess <- function(obj) {
 
 
 seurat_obj <- list() # create an empty seurat_object list
+intr_seurat_obj <- list()
 
 for (i in 1:length(samples[[1]])) {
   sam_seurat_objt <- names(expression_matrices[i])
   sample_name <- names(expression_matrices[i])
   sam_seurat_objt <-
     CreateSeuratObject(counts = expression_matrices[i], project = sample_name)
+  intr_seurat_obj[[sample_name]] <- sam_seurat_objt
   seurat_obj[[sample_name]] <- do_preprocess(sam_seurat_objt)
 }
 
-saveRDS(seurat_obj, file = snakemake@output[["sleuth_object"]])
+
+saveRDS(intr_seurat_obj, file = snakemake@output[["intergrated_seurat_object"]])
+saveRDS(seurat_obj, file = snakemake@output[["seurat_object"]])

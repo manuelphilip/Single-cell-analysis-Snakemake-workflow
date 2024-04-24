@@ -9,7 +9,7 @@ model <- snakemake@params[["model"]]
 
 
 
-seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
+seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
 
 vln_plot <- list()
 variable_features <- list()

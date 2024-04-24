@@ -9,7 +9,7 @@ library(ggplot2)
 library(devtools)
 install_github('immunogenomics/presto')
 
-seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
+seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
 
 genes_of_interest <- c(snakemake@params[["genes_of_interest"]])
 sample <- snakemake@wildcards$sample
