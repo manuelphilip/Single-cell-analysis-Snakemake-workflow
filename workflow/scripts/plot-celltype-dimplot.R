@@ -9,14 +9,13 @@ library(scCustomize)
 library(ggplot2)
 library(tidyr)
 
-seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
-sample <- snakemake@wildcards$sample
+seurat_obj <- readRDS(snakemake@input[["intergrated_seurat_object"]])
 
 file_celltype <-
   read.csv(snakemake@input[["file_celltype"]], sep = "\t", header = FALSE)
 
 top_10_markers <-
-  read.csv(snakemake@input[["top_10_markers"]], sep = ",", header = TRUE)
+  read.csv(snakemake@input[["top_10_celltype_markers"]], sep = ",", header = TRUE)
 
 names(file_celltype) <- c("gene", "cell_type")
 
@@ -33,10 +32,15 @@ cell_type_markers <- top_10_markers %>%
 
 new_cluster_ids <- c(cell_type_markers$cell_type)
 
-names(new_cluster_ids) <- levels(seurat_obj[[sample]])
-seurat_obj[[sample]] <- RenameIdents(seurat_obj[[sample]], new_cluster_ids)
-pdf(file = snakemake@output[["dim_plot"]])
-DimPlot(seurat_obj[[sample]], label = TRUE) +
-  labs(x = levels((seurat_obj[[sample]]@meta.data$orig.ident)))
-dev.off()
 
+names(new_cluster_ids) <- levels(seurat_obj)
+seurat_obj <- RenameIdents(seurat_obj, new_cluster_ids)
+seurat_obj<-AddMetaData(seurat_obj, Idents(seurat_obj), 
+col.name = 'Cell_type')
+
+pdf(file = snakemake@output[["dim_plot"]])
+DimPlot(seurat_obj, label = TRUE) +
+labs(x = levels((seurat_obj@meta.data$orig.ident)))
+dev.off()
+saveRDS(seurat_obj,
+    file = snakemake@output[["celltype_seurat_object"]])

@@ -7,26 +7,16 @@ type: object
 properties:
   samples:
     type: string
-  units:
-    type: string
+
     
   resources:
     type: object
     properties:
-      ref:
-        type: object
-        properties:
-          species:
-            type: string
-          release:
-            type: string
-          build:
-            type: string
+      path:
+        type: string
 
         required:
-          - species
-          - release
-          - build
+          - path
 required:
   - samples
   - resources

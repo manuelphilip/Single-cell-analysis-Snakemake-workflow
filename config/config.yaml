@@ -1,39 +1,22 @@
 # This workflow executes from cell ranger out put with the path defines as follows
 # ~/sample_name/outs/
+# Set activate to true one step after the other as the workflow is depended on the output from one step.
 samples: config/samples.tsv
 
 
 resources:
-  ref:
-    # cellranger species name
-    species: Mus_musculus
-    # cellranger release version
-    release: "2020"
-    # cell ranger genome build
-    build: GRCm38
+  #Path of the folder where output from cellranger is present
   path: "/gpfs/bwfor/work/ws/hd_dr000-myws/10x_analysis_9709-FA"
 
 
 clustering:
+  # By default it is set to true, based on the initial setting, user need to fine to get optimum clusters
   activate: true
   dim: 20
   resolution: 0.5
 
-
-diffexp:
-  # samples to exclude (e.g. outliers due to technical problems)
-  exclude:
-  # model for seurat differential expression analysis
-  models:
-    model_X:
-      full: ~condition
-      # Binary valued covariate that shall be used for fold change/effect size
-      # based downstream analyses.
-      primary_variable: condition
-      # base level of the primary variable (will be considered as denominator
-      # in the fold change/effect size estimation).
-      base_level: untreated
 visualize_marker_expression:
+  # By default it is set to false, based on the top 10 markers obtained from the results, user can give the list of genes for which corresponding volin plots, feature plots are plotted
   activate: true
   genes_of_interest:
     - Itgam
@@ -41,5 +24,33 @@ visualize_marker_expression:
     - Pdgfra
 
 celltype_annotation:
+  # By default it is set to false, user need to provide tab limited file that contains marker gene and its corresponding cell type
   activate: true
   path: "/home/hd/hd_hd/hd_dr000/snakemake/Single-cell-analysis-Snakemake-workflow/Cell_types.csv"
+
+
+merged_sample_clustering:
+    # By default it is set to false, If the differential expression is to be carried out across samples, set this as true. The samples are initially merged and then differential expression is carried out once the "diffexp" is set to true
+  activate: true
+  dim: 20
+  resolution: 0.5
+
+diffexp:
+    # By default it is set to false, The differential expression by default is performed based on per cluster based according to seurat package. The fold change values are obtained when the "visualize_marker_expression" is set to true. If the differential expression is to be carried out across samples, set this as true.
+  activate: true
+  # model for seurat differential expression analysis
+  models:
+  # The model names must match with the samples.tsv file comparison groups columns
+    wt_vs_ko:
+      # Define the column name containing the groups which has to be compared
+      column_name: wt_vs_ko
+      # base level of the primary variable (will be considered as denominator
+      # in the fold change/effect size estimation).
+      base_level: wt
+      # comparison level of the primary variable (will be considered as numerator
+      # in the fold change/effect size estimation).
+      comparison_variable: ko
+
+cell_type_diff_exp:
+  activate: true
+  cell_type: MG
