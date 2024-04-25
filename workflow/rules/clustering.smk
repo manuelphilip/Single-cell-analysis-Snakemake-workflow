@@ -6,7 +6,8 @@ rule perform_clustering_and_dim_reduction:
     resources:
         cpus_per_task=20,
         mem_mb=94000,
-        nodes=10
+        nodes=10,
+        runtime = 20,
     params:
         dims=config["clustering"]["dim"],
         resolution=config["clustering"]["resolution"]

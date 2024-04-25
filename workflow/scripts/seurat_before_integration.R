@@ -10,16 +10,12 @@ library(tibble)
 
 model <- snakemake@params[["model"]]
 
-print(model)
 
-print(str(model))
 samples <- read.csv(snakemake@input[["samples"]], header = TRUE, sep = "\t")
 
-print(snakemake@params[["groups"]])
-print(snakemake@params[["base_level"]])
 
-intergrated_seurat_object <-
-  readRDS(snakemake@input[["intergrated_seurat_object"]])
+integration_seurat_object <-
+  readRDS(snakemake@input[["integration_seurat_object"]])
 
 merged_seurat_object <- list()
 
@@ -45,7 +41,7 @@ merge_seurat_objects <- function(x, y) {
   return(merged_seurat)
 }
 
-merged_seurat <- Reduce(merge_seurat_objects, intergrated_seurat_object)
+merged_seurat <- Reduce(merge_seurat_objects, integration_seurat_object)
 
 merged_seurat <- JoinLayers(merged_seurat)
 

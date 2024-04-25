@@ -5,13 +5,7 @@ samples: config/samples.tsv
 
 
 resources:
-  ref:
-    # cellranger species name
-    species: Mus_musculus
-    # cellranger release version
-    release: "2020"
-    # cell ranger genome build
-    build: GRCm38
+  #Path of the folder where output from cellranger is present
   path: "/gpfs/bwfor/work/ws/hd_dr000-myws/10x_analysis_9709-FA"
 
 
@@ -53,23 +47,10 @@ diffexp:
       # base level of the primary variable (will be considered as denominator
       # in the fold change/effect size estimation).
       base_level: wt
-    m_vs_f:
-      # Define the column name containing the groups which has to be compared
-      column_name: m_vs_f
-      # base level of the primary variable (will be considered as denominator
+      # comparison level of the primary variable (will be considered as numerator
       # in the fold change/effect size estimation).
-      base_level: m
+      comparison_variable: ko
 
 cell_type_diff_exp:
-    # By default it is set to false,  If the differential expression is to be carried out on same cell type across conditions, set this as true.
-  diffexp:
-    activate: false
-    models:
-      MG_wt_vs_ko:
-        # Define the column name containing the groups which has to be compared
-        column_name: wt_vs_ko
-        # base level of the primary variable (will be considered as denominator
-        # in the fold change/effect size estimation).
-        base_level: wt
-        # Please note, the cell type names should match exactly with the annotation table provided as input, including case sensitivity
-        cell_type: MG
+  activate: true
+  cell_type: MG

@@ -37,7 +37,6 @@ report: "../report/workflow.rst"
 wildcard_constraints:
     sample="|".join(samples.index),
     models="|".join(list(config["diffexp"].get("models", [])) + ["all"]),
-    cell_type_model = "|".join(list(config["cell_type_diff_exp"]["diffexp"].get("models", []))),
 
 ####### helpers ###########
 
@@ -125,7 +124,7 @@ def all_input(wildcards):
         wanted_input.extend(
             expand(
                 [
-                "results/seurat_intergration/merge/{model}.seurat_objt_before_intergration.rds",
+                "results/seurat/integration/merge/{model}.seurat_objt_before_integration.rds",
                 ],
                 model=config["diffexp"]["models"],
             )
@@ -135,9 +134,30 @@ def all_input(wildcards):
         wanted_input.extend(
             expand(
                 [
-                "results/plots/seurat_intergration/merge/clustering/{model}.Dim-plot.pdf",
+                "results/plots/seurat/integration/merge/clustering/{model}.Dim-plot.pdf",
+                #Need to fix the rule issue plot_integration_plots
+                #"results/plots/seurat/integration/integration/{model}.Dim-plot.pdf",
+                "results/tables/seurat/integration/{model}.diff-exp-genes.tsv",
+                "results/plots/seurat/integration/per_celltype/{model}.Dim-plot.pdf",
+                "results/tables/seurat/integration/{model}.top-10-markers.tsv",
+                "results/plots/seurat/integration/{model}.Heatmap-plot.pdf",
+                "results/plots/seurat/integration/volcano_plots/{model}.volcano_plot.pdf",
                 ],
                 model=config["diffexp"]["models"],
+            )
+        
+        )
+    if config["cell_type_diff_exp"]["activate"]:
+        wanted_input.extend(
+            expand(
+                [
+                "results/tables/seurat/integration/per_celltype/{model}.{celltype}.celltype-diff-exp-genes.tsv",
+                "results/tables/seurat/integration/per_celltype/{model}.{celltype}.top-10-celltype-markers.tsv",
+                "results/plots/seurat/integration/per_celltype/{model}.{celltype}.celltype-Heatmap-plot.pdf",
+                "results/plots/seurat/integration/per_celltype/volcano_plots/{model}.{celltype}.celltype-volcano_plot.pdf",
+                ],
+                model=config["diffexp"]["models"],
+                celltype=config["cell_type_diff_exp"]["cell_type"],
             )
         
         )

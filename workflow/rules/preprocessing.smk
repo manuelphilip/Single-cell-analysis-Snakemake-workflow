@@ -3,7 +3,7 @@ rule perform_preprocessing:
         samples="config/samples.tsv",
     output:
         seurat_object= "results/seurat/preprocessing/all.seurat_objt.rds",
-        intergrated_seurat_object="results/seurat/preprocessing/all.seurat_intergrated_objt.rds",
+        intergrated_seurat_object="results/seurat/preprocessing/all.seurat_integration_objt.rds",
     resources:
         cpus_per_task=20,
         runtime = 20,
