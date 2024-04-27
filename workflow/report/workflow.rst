@@ -1,0 +1,2 @@
+After preprocessing the samples are clustered and diminstionality reduction is performed using `Seurat <https://pachterlab.github.io/kallisto/>`_.
+Integrated normalization and differential expression analysis was also conducted with `Seurat Integration <https://pachterlab.github.io/sleuth>`_ following standard procedure as outlined in the manual.

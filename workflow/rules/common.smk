@@ -161,4 +161,64 @@ def all_input(wildcards):
             )
         
         )
+        if config["enrichment"]["activate"]:
+            wanted_input.extend(
+                expand(
+                    [
+                    "results/tables/seurat/integration/enrichment/celltype/{model}.{celltype}.top_cellular_components.tsv",
+                    "results/tables/seurat/integration/enrichment/celltype/{model}.{celltype}.top_biological_process.tsv",
+                    "results/tables/seurat/integration/enrichment/celltype/{model}.{celltype}.top_molecular_function.tsv",
+                    "results/tables/seurat/integration/pathway/celltype/{model}.{celltype}.pathway_results.tsv",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.bar_plot_cc.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.bar_plot_bp.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.bar_plot_mf.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.dot_plot_cc.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.dot_plot_bp.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.dot_plot_mf.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.tree_plot_cc.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.tree_plot_bp.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.tree_plot_mf.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.enrichment_map_cc.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.enrichment_map_bp.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.enrichment_map_mf.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.upset_plot_cc.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.upset_plot_bp.pdf",
+                    "results/plots/seurat/integration/enrichment/celltype/{model}.{celltype}.upset_plot_mf.pdf",
+                    "results/plots/seurat/integration/pathway/celltype/{model}.{celltype}.dotplot_pathway.pdf",
+                    "results/plots/seurat/integration/pathway/celltype/{model}.{celltype}.bar_plot_pathway.pdf",
+                ],
+                model=config["diffexp"]["models"],
+                celltype=config["cell_type_diff_exp"]["cell_type"],
+            )
+        )
+    if config["enrichment"]["activate"]:
+        wanted_input.extend(
+            expand(
+                [
+                "results/tables/seurat/integration/enrichment/groups/{model}.top_cellular_components.tsv",
+                "results/tables/seurat/integration/enrichment/groups/{model}.top_biological_process.tsv",
+                "results/tables/seurat/integration/enrichment/groups/{model}.top_molecular_function.tsv",
+                "results/tables/seurat/integration/pathway/groups/{model}.pathway_results.tsv",
+                "results/plots/seurat/integration/enrichment/groups/{model}.bar_plot_cc.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.bar_plot_bp.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.bar_plot_mf.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.dot_plot_cc.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.dot_plot_bp.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.dot_plot_mf.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.tree_plot_cc.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.tree_plot_bp.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.tree_plot_mf.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.enrichment_map_cc.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.enrichment_map_bp.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.enrichment_map_mf.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.upset_plot_cc.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.upset_plot_bp.pdf",
+                "results/plots/seurat/integration/enrichment/groups/{model}.upset_plot_mf.pdf",
+                "results/plots/seurat/integration/pathway/groups/{model}.bar_plot_pathway.pdf",
+                "results/plots/seurat/integration/pathway/groups/{model}.dotplot_pathway.pdf",
+                ],
+                model=config["diffexp"]["models"],
+            )
+        
+        )
     return wanted_input

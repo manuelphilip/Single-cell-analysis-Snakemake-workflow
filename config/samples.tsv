@@ -1,5 +1,5 @@
-sample	wt_vs_ko	m_vs_f
-p4_magel2_null_f	ko	f
-p4_magel2_null_m	ko	m
-p4_magel2_wt_f	wt	f
-p4_magel2_wt_m	wt	m
+sample	wt_vs_ko	m_vs_f	m_wt_vs_ko	f_wt_vs_ko
+p4_magel2_null_f	ko	f		ko
+p4_magel2_null_m	ko	m	ko	
+p4_magel2_wt_f	wt	f		
+p4_magel2_wt_m	wt	m	wt	wt

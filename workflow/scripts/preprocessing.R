@@ -32,7 +32,9 @@ for (i in 1:length(samples[[1]])) {
   sample_name <- names(expression_matrices[i])
   sam_seurat_objt <-
     CreateSeuratObject(counts = expression_matrices[i], project = sample_name)
-  intr_seurat_obj[[sample_name]] <- sam_seurat_objt
+  intr_seurat_obj[[sample_name]] <-
+    PercentageFeatureSet(sam_seurat_objt,
+                         pattern = "^mt-", col.name = "percent.mt")
   seurat_obj[[sample_name]] <- do_preprocess(sam_seurat_objt)
 }
 
