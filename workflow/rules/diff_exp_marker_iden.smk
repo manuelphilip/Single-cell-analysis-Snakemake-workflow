@@ -3,11 +3,42 @@ if config["visualize_marker_expression"]["activate"]:
         input:
             seurat_object="results/seurat/clustering/all.seurat_objt.rds",
         output:
-            all_markers="results/tables/diffexp/{sample}.diff-exp-genes.tsv",
-            top_10_markers="results/tables/diffexp/{sample}.top-10-markers.tsv",
-            heatmap="results/plots/diffexp/{sample}.Heatmap-plot.pdf",
-            feature_plot="results/plots/diffexp/{sample}.Features-plot.pdf",
-            Vln_plot="results/plots/diffexp/{sample}.Top-features-Vln-plot.pdf",
+            all_markers=report("results/tables/diffexp/{sample}.diff-exp-genes.tsv",
+                    category="Per sample marker identification",  
+                    subcategory="Differential expression tables",
+                    labels={
+                        "sample":"{sample}", "table": "differentially expressed genes",
+                    },
+            ),
+            top_10_markers=report("results/tables/diffexp/{sample}.top-10-markers.tsv",
+                    category="Per sample marker identification",  
+                    subcategory="Differential expression tables",
+                    labels={
+                        "sample":"{sample}", "table": "top-10-markers",
+                    },
+            ),
+            heatmap=report("results/plots/diffexp/{sample}.Heatmap-plot.pdf",
+                    category="Per sample marker identification",  
+                    subcategory="per sample Heatmap",
+                    labels={
+                        "sample":"{sample}", "plot":"Heatmap",
+                    },            
+            
+            ),
+            feature_plot=report("results/plots/diffexp/{sample}.Features-plot.pdf",
+                    category="Per sample marker identification",  
+                    subcategory="per sample Top features plot",
+                    labels={
+                        "sample":"{sample}", "plot":"Top features plot",
+                    },            
+            ),
+            Vln_plot=report("results/plots/diffexp/{sample}.Top-features-Vln-plot.pdf",
+                    category="Per sample marker identification",  
+                    subcategory="per sample Top features Vln plot",
+                    labels={
+                        "sample":"{sample}", "plot":"Top features Vln plot",
+                    },            
+                ),
         resources:
             cpus_per_task=20,
             mem_mb=94000,
@@ -25,9 +56,29 @@ else:
         input:
             seurat_object="results/seurat/clustering/all.seurat_objt.rds",
         output:
-            all_markers="results/tables/diffexp/{sample}.diff-exp-genes.tsv",
-            top_10_markers="results/tables/diffexp/{sample}.top-10-markers.tsv",
-            heatmap="results/plots/diffexp/{sample}.Heatmap-plot.pdf",
+            all_markers=report("results/tables/diffexp/{sample}.diff-exp-genes.tsv",
+                category="Differential expression tables",
+                subcategory="per sample heatmap",
+                labels={
+                    "sample":"{sample}", "table":"differentially expressed genes",
+                },  
+            
+            ),
+            top_10_markers=report("results/tables/diffexp/{sample}.top-10-markers.tsv",
+                category="Differential expression tables",
+                subcategory="per sample heatmap",
+                labels={
+                    "sample":"{sample}", "table":"top 10 markers",
+                },  
+            ),
+            heatmap=report("results/plots/diffexp/{sample}.Heatmap-plot.pdf",
+                category="Per sample marker identification",
+                subcategory="per sample heatmap",
+                labels={
+                    "sample":"{sample}", "plot":"Heatmap",
+                },             
+            
+            )
         resources:
             cpus_per_task=20,
             mem_mb=94000,
@@ -45,7 +96,15 @@ rule assign_cell_type_identity_to_cluster:
         file_celltype=config["celltype_annotation"]["path"],
         top_10_markers="results/tables/diffexp/{sample}.top-10-markers.tsv",
     output:
-        dim_plot="results/plots/celltype/{sample}.Dim-plot.pdf",
+        dim_plot=report("results/plots/celltype/{sample}.Dim-plot.pdf",
+            category="Per sample assigned celltype to Dimensions",
+            subcategory="celltype Dimensions plot",
+            labels={
+                "sample":"{sample}", "plot":"Dim plot",
+            }, 
+        
+        
+        )
     resources:
         cpus_per_task=20,
         mem_mb=94000,

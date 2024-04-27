@@ -28,7 +28,13 @@ rule plot_dim_plots_for_merged_seurat:
     input:
         seurat_object="results/seurat/integration/merge/{model}.seurat_objt_before_integration.rds",
     output:
-        merge_dim_plot="results/plots/seurat/integration/merge/clustering/{model}.Dim-plot.pdf",
+        merge_dim_plot=report("results/plots/seurat/integration/merge/clustering/{model}.Dim-plot.pdf",
+            category="Sample cluster plot before integration",
+            subcategory="Dimension reduction plots",
+            labels={
+                "model": "{model}", "plot": "Dimension reduction plot",
+                },  
+        ),       
     resources:
         cpus_per_task=20,
         mem_mb=94000,
@@ -75,7 +81,13 @@ rule assign_celltype_to_integrated_seurat:
         file_celltype=config["celltype_annotation"]["path"],
         top_10_celltype_markers="results/tables/seurat/integration/markers/{model}.top-10-markers-per-cluster.tsv",
     output:
-        dim_plot="results/plots/seurat/integration/per_celltype/{model}.Dim-plot.pdf",
+        dim_plot=report("results/plots/seurat/integration/per_celltype/{model}.Dim-plot.pdf",
+            category="Dimension reduction plots of assigned celltypes",
+            subcategory="Dimension reduction plots",
+            labels={
+                   "model": "{model}", "plot": "Dimension reduction plot",
+                },  
+        ),
         celltype_seurat_object="results/seurat/integration/celltype/{model}.celltype_integration_seurat_objt.rds",
     resources:
         cpus_per_task=20,
@@ -92,14 +104,41 @@ rule per_celltype_diffexp:
     input:
         celltype_seurat_object="results/seurat/integration/celltype/{model}.celltype_integration_seurat_objt.rds",
     output:
-        all_markers="results/tables/seurat/integration/per_celltype/{model}.{celltype}.celltype-diff-exp-genes.tsv",
-        top_10_markers="results/tables/seurat/integration/per_celltype/{model}.{celltype}.top-10-celltype-markers.tsv",
-        heatmap="results/plots/seurat/integration/per_celltype/{model}.{celltype}.celltype-Heatmap-plot.pdf",
-        volcano_plot="results/plots/seurat/integration/per_celltype/volcano_plots/{model}.{celltype}.celltype-volcano_plot.pdf",
+        all_markers=report("results/tables/seurat/integration/per_celltype/{model}.{celltype}.celltype-diff-exp-genes.tsv",
+                category=" Per celltype differential expression ",
+                subcategory="Differential expression tables",
+                labels={
+                   "model": "{model}", "celltype": "{celltype}", "table": "differentially expressed genes",
+                }, 
+        ),
+        top_10_markers=report("results/tables/seurat/integration/per_celltype/{model}.{celltype}.top-10-celltype-markers.tsv",
+                category=" Per celltype differential expression ",
+                subcategory="Differential expression tables",
+                labels={
+                   "model": "{model}", "celltype": "{celltype}", "table": "top 10 markers",
+                }, 
+        
+        ),
+        heatmap=report("results/plots/seurat/integration/per_celltype/{model}.{celltype}.celltype-Heatmap-plot.pdf",
+                category=" Per celltype differential expression ",
+                subcategory="Per celltype heatmaps",
+                labels={
+                   "model": "{model}", "celltype": "{celltype}", "plot": "Heatmaps",
+                },         
+        
+        ),
+        volcano_plot=report("results/plots/seurat/integration/per_celltype/volcano_plots/{model}.{celltype}.celltype-volcano_plot.pdf",
+                category=" Per celltype differential expression ",
+                subcategory="Per celltype volcano plots",
+                labels={
+                   "model": "{model}", "celltype": "{celltype}", "plot": "Volcano plots",
+                },  
+        ),
     resources:
         cpus_per_task=20,
         mem_mb=94000,
-        nodes=10
+        nodes=10,
+        runtime = 20,
     params:
         model=config["diffexp"]["models"],
         column_name=lambda wc: config["diffexp"]["models"][wc.model][

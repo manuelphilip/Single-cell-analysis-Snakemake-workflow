@@ -14,7 +14,7 @@ seurat_obj <- readRDS(snakemake@input[["celltype_seurat_object"]])
 column_name <- snakemake@params[["column_name"]]
 base_level <- snakemake@params[["base_level"]]
 comparison <- snakemake@params[["comparison_variable"]]
-cell_type <- snakemake@params[["cell_type"]]
+cell_type <- snakemake@wildcards$celltype
 
 
 cell_type_accessor_string <- paste0("seurat_obj$Cell_type")

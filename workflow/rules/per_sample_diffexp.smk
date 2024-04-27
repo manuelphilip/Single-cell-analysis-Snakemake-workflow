@@ -2,10 +2,36 @@ rule sample_diffexp:
     input:
         intergrated_seurat_object="results/seurat/integration/{model}.seurat_objt_integration.rds",
     output:
-        all_markers="results/tables/seurat/integration/{model}.diff-exp-genes.tsv",
-        top_10_markers="results/tables/seurat/integration/{model}.top-10-markers.tsv",
-        heatmap="results/plots/seurat/integration/{model}.Heatmap-plot.pdf",
-        volcano_plot="results/plots/seurat/integration/volcano_plots/{model}.volcano_plot.pdf",
+        all_markers=report("results/tables/seurat/integration/{model}.diff-exp-genes.tsv",
+            category="Per model differential expression",
+            subcategory="differential expression tables",
+            labels={
+                   "model": "{model}", "table": "differentially expressed genes"
+                },  
+        
+        ),
+        top_10_markers=report("results/tables/seurat/integration/{model}.top-10-markers.tsv",
+            category="Per model differential expression",
+            subcategory="differential expression tables",
+            labels={
+                   "model": "{model}", "table": "top 10 markers"
+                },  
+        ),
+    
+        heatmap=report("results/plots/seurat/integration/{model}.Heatmap-plot.pdf",
+            category="Per model differential expression",
+            subcategory="Heatmap",
+            labels={
+                   "model": "{model}", "plot": "Heatmap"
+                },  
+        ),
+        volcano_plot=report("results/plots/seurat/integration/volcano_plots/{model}.volcano_plot.pdf",
+            category="Per model differential expression",
+            subcategory="Volcano plot",
+            labels={
+                   "model": "{model}", "plot": "Volcano plot",
+                },  
+        )
     resources:
         cpus_per_task=20,
         mem_mb=94000,

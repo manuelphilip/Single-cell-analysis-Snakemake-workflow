@@ -23,7 +23,13 @@ rule plot_clustering_dim_reduction_plots:
     input:
        seurat_object="results/seurat/clustering/all.seurat_objt.rds",
     output:
-        dim_plot="results/plots/clustering/all.Dim-plot.pdf",
+        dim_plot=report("results/plots/clustering/all.Dim-plot.pdf",
+            category="Clustering",
+            subcategory="global",
+            labels={
+                    "plot": "Per sample Dim plot",
+                },       
+        )
     resources:
         cpus_per_task=20,
         mem_mb=94000,

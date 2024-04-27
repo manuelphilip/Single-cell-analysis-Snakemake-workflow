@@ -6,7 +6,7 @@ samples: config/samples.tsv
 
 resources:
   #Path of the folder where output from cellranger is present
-  path: "/gpfs/bwfor/work/ws/hd_dr000-myws/10x_analysis_9709-FA"
+  path: "/home/hd/hd_hd/hd_dr000/10x_analysis_9709-FA"
 
 
 clustering:
@@ -50,7 +50,33 @@ diffexp:
       # comparison level of the primary variable (will be considered as numerator
       # in the fold change/effect size estimation).
       comparison_variable: ko
+    m_wt_vs_ko:
+      # Define the column name containing the groups which has to be compared
+      column_name: m_wt_vs_ko
+      # base level of the primary variable (will be considered as denominator
+      # in the fold change/effect size estimation).
+      base_level: wt
+      # comparison level of the primary variable (will be considered as numerator
+      # in the fold change/effect size estimation).
+      comparison_variable: ko
+    f_wt_vs_ko:
+      # Define the column name containing the groups which has to be compared
+      column_name: f_wt_vs_ko
+      # base level of the primary variable (will be considered as denominator
+      # in the fold change/effect size estimation).
+      base_level: wt
+      # comparison level of the primary variable (will be considered as numerator
+      # in the fold change/effect size estimation).
+      comparison_variable: ko
 
 cell_type_diff_exp:
   activate: true
-  cell_type: MG
+  cell_type:
+    - MG
+    - ASC
+    - opc
+
+
+enrichment:
+  activate: true
+  

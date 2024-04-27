@@ -24,9 +24,27 @@ rule plot_preprocessing_plots:
     input:
         seurat_object="results/seurat/preprocessing/all.seurat_objt.rds",
     output:
-        QC_vln_plot="results/plots/preprocessing/all.QC-Vln-plot.pdf",
-        variable_features="results/plots/preprocessing/all.Highly_variable_features-plot.pdf",
-        elbow_plot="results/plots/preprocessing/all.Elbow-plot.pdf",
+        QC_vln_plot=report("results/plots/preprocessing/all.QC-Vln-plot.pdf",
+            category="QC",
+            subcategory="global",
+            labels={
+                    "plot": "pre-processing Vln plot",
+                },
+        ),
+        variable_features=report("results/plots/preprocessing/all.Highly_variable_features-plot.pdf",
+            category="QC",
+            subcategory="global",
+            labels={
+                    "plot": "Highly variable features plot",
+                },
+        ),
+        elbow_plot=report("results/plots/preprocessing/all.Elbow-plot.pdf",
+            category="QC",
+            subcategory="global",
+            labels={
+                    "plot": "Elbow plot",
+                },        
+        )
     resources:
         cpus_per_task=20,
         mem_mb=94000,
