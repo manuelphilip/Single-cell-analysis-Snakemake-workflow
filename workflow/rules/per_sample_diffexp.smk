@@ -3,6 +3,7 @@ rule sample_diffexp:
         intergrated_seurat_object="results/seurat/integration/{model}.seurat_objt_integration.rds",
     output:
         all_markers=report("results/tables/seurat/integration/{model}.diff-exp-genes.tsv",
+            caption="../report/model_all_markers.rst",
             category="Per model differential expression",
             subcategory="differential expression tables",
             labels={
@@ -11,21 +12,15 @@ rule sample_diffexp:
         
         ),
         top_10_markers=report("results/tables/seurat/integration/{model}.top-10-markers.tsv",
+            caption="../report/model_top_10_markers.rst",
             category="Per model differential expression",
             subcategory="differential expression tables",
             labels={
                    "model": "{model}", "table": "top 10 markers"
                 },  
         ),
-    
-        heatmap=report("results/plots/seurat/integration/{model}.Heatmap-plot.pdf",
-            category="Per model differential expression",
-            subcategory="Heatmap",
-            labels={
-                   "model": "{model}", "plot": "Heatmap"
-                },  
-        ),
         volcano_plot=report("results/plots/seurat/integration/volcano_plots/{model}.volcano_plot.pdf",
+            caption="../report/model_volcano_plot.rst",
             category="Per model differential expression",
             subcategory="Volcano plot",
             labels={

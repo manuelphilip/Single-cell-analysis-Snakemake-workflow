@@ -1,0 +1,2 @@
+**QC volin plot**
+After preprocessing the QC volin plot show the unique feature counts (nFeature_RNA), number of RNA count (nCount_RNA), and the percentage of reads that map to the mitochondrial genome (percent.mt). More information can be found here `Seurat tutorial <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_

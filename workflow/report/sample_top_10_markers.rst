@@ -1,0 +1,2 @@
+**Top 10 Positive features (cluster biomarkers) table**
+Table contains top 10 markers that are positively expressed in each cluster. By default, it shows positive markers of a single cluster (specified in ident.1 (pct.1)), compared to all other cells (pct.2). pct-(percentage of cells expressed). More information can be found here `Seurat tutorial <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_

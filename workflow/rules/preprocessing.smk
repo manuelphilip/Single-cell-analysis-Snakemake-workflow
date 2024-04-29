@@ -25,6 +25,7 @@ rule plot_preprocessing_plots:
         seurat_object="results/seurat/preprocessing/all.seurat_objt.rds",
     output:
         QC_vln_plot=report("results/plots/preprocessing/all.QC-Vln-plot.pdf",
+            caption="../report/qc_volin_plot.rst",
             category="QC",
             subcategory="global",
             labels={
@@ -32,6 +33,7 @@ rule plot_preprocessing_plots:
                 },
         ),
         variable_features=report("results/plots/preprocessing/all.Highly_variable_features-plot.pdf",
+            caption="../report/variable_feature_plot.rst",
             category="QC",
             subcategory="global",
             labels={
@@ -39,6 +41,7 @@ rule plot_preprocessing_plots:
                 },
         ),
         elbow_plot=report("results/plots/preprocessing/all.Elbow-plot.pdf",
+            caption="../report/elbow_plot.rst",
             category="QC",
             subcategory="global",
             labels={

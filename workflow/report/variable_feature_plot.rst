@@ -1,0 +1,2 @@
+**Variable feature plot**
+A Dotplot shows the subset of features that exhibit high cell-to-cell variation in the dataset (i.e, they are highly expressed in some cells, and lowly expressed in others). More information can be found here `Seurat tutorial <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_

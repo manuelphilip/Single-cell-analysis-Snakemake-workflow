@@ -79,4 +79,8 @@ cell_type_diff_exp:
 
 enrichment:
   activate: true
+  sig-level:
+    gene_ontology_p_val: 0.05
+    gene_ontology_q_val: 0.05
+    pathway: 0.05
   

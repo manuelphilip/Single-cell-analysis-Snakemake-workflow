@@ -1,0 +1,2 @@
+**Volcano plot**
+Volcano plot contains differentially expressed genes per celltype on models defined in the config.yaml. Blue coloured shows significantly downregulated genes and red coloured shows significantly upregulated genes. More information can be found here `Seurat de_vignette <https://satijalab.org/seurat/articles/de_vignette>`_

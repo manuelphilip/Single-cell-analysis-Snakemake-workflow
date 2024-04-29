@@ -32,6 +32,10 @@ expression_file$ENTREZID <- mapIds(org.Mm.eg.db,
                                    keytype = "ENSEMBL",
                                    multiVals = "first")
 
+gene_ontology_p_val <- snakemake@params[["gene_ontology_p_val"]]
+gene_ontology_q_val <- snakemake@params[["gene_ontology_q_val"]]
+pathway_significant <- snakemake@params[["pathway_significant"]]
+
 ensembl_list <-
   expression_file %>%
   dplyr::filter(avg_log2FC > 0.1 | avg_log2FC < -0.1) %>%
@@ -43,24 +47,24 @@ ego2_cc <- enrichGO(gene       = ensembl_list$ENSEMBL,
                  keyType       = "ENSEMBL",
                  ont           = "CC",
                  pAdjustMethod = "BH",
-                 pvalueCutoff  = 0.05,
-                 qvalueCutoff  = 0.05)
+                 pvalueCutoff  = gene_ontology_p_val,
+                 qvalueCutoff  = gene_ontology_q_val)
 
 ego2_bp <- enrichGO(gene         = ensembl_list$ENSEMBL,
                  OrgDb         = org.Mm.eg.db,
                  keyType       = "ENSEMBL",
                  ont           = "BP",
                  pAdjustMethod = "BH",
-                 pvalueCutoff  = 0.05,
-                 qvalueCutoff  = 0.05)
+                 pvalueCutoff  = gene_ontology_p_val,
+                 qvalueCutoff  = gene_ontology_q_val)
 
 ego2_mf <- enrichGO(gene         = ensembl_list$ENSEMBL,
                  OrgDb         = org.Mm.eg.db,
                  keyType       = "ENSEMBL",
                  ont           = "MF",
                  pAdjustMethod = "BH",
-                 pvalueCutoff  = 0.05,
-                 qvalueCutoff  = 0.05)
+                 pvalueCutoff  = gene_ontology_p_val,
+                 qvalueCutoff  = gene_ontology_q_val)
 
 go_cc_table <- data.frame(ego2_cc)
 go_bp_table <- data.frame(ego2_bp)
@@ -81,7 +85,7 @@ genelist <- sort(genelist, decreasing = TRUE)
 length(genelist)
 
 pathway <- gsePathway(genelist,
-                      pvalueCutoff = 0.05,
+                      pvalueCutoff = pathway_significant,
                       pAdjustMethod = "BH",
                       verbose = FALSE, organism = "mouse")
 
