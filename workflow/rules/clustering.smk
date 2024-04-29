@@ -24,6 +24,7 @@ rule plot_clustering_dim_reduction_plots:
        seurat_object="results/seurat/clustering/all.seurat_objt.rds",
     output:
         dim_plot=report("results/plots/clustering/all.Dim-plot.pdf",
+            caption="../report/clustering_dimplot.rst",
             category="Clustering",
             subcategory="global",
             labels={

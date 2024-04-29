@@ -1,0 +1,4 @@
+**Pathway enrichment** performed with clusterProfiler.
+
+The table contains the following columns (also see the clusterProfiler docs `clusterProfiler docs <https://yulab-smu.top/biomedical-knowledge-mining-book/reactomepa.html>`_): 
+``setSize`` is the number of genes expressed on the pathway; ``enrichmentScore`` A metric (often log-fold change or similar) representing the degree to which the pathway is enriched in the data compared to a background reference; ``NES`` enrichment score normalized to mean enrichment of random samples of the same size; ``leading_edge`` the percentage of genes within that pathway that contribute most to the overall enrichment score. A higher "leading_edge" value suggests a stronger enrichment signal driven by a focused set of genes within the pathway. ``core_enrichment`` Top number of genes, here the PMID of each gene separated by a backward slash (`/`). 

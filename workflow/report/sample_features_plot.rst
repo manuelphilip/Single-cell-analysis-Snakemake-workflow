@@ -1,0 +1,2 @@
+**Marker specific feature plot**
+ A dimensional reduction plot that colors single cells according to a 'feature' (i.e. gene expression, PC scores, number of genes detected, etc.). Here based on the genes listed in the config.yaml file section `visualize_marker_expression`. More information can be found here `Seurat featureplot <https://satijalab.org/seurat/reference/featureplot>`_

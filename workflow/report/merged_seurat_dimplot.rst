@@ -1,0 +1,2 @@
+**Sample integration dimensional reduction plot**
+A Graph that gives the output of a dimensional reduction technique on a 2D scatter plot where each point is a cell and it's positioned based on the cell embeddings determined by the reduction technique after sample integration and celltype assignment. More information can be found here `Seurat integration <https://satijalab.org/seurat/articles/seurat5_integration>`_

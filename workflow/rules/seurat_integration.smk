@@ -29,6 +29,7 @@ rule plot_dim_plots_for_merged_seurat:
         seurat_object="results/seurat/integration/merge/{model}.seurat_objt_before_integration.rds",
     output:
         merge_dim_plot=report("results/plots/seurat/integration/merge/clustering/{model}.Dim-plot.pdf",
+            caption="../report/merged_seurat_dimplot.rst",
             category="Sample cluster plot before integration",
             subcategory="Dimension reduction plots",
             labels={
@@ -82,6 +83,7 @@ rule assign_celltype_to_integrated_seurat:
         top_10_celltype_markers="results/tables/seurat/integration/markers/{model}.top-10-markers-per-cluster.tsv",
     output:
         dim_plot=report("results/plots/seurat/integration/per_celltype/{model}.Dim-plot.pdf",
+            caption="../report/celltype_assign_dimplot.rst",
             category="Dimension reduction plots of assigned celltypes",
             subcategory="Dimension reduction plots",
             labels={
@@ -105,6 +107,7 @@ rule per_celltype_diffexp:
         celltype_seurat_object="results/seurat/integration/celltype/{model}.celltype_integration_seurat_objt.rds",
     output:
         all_markers=report("results/tables/seurat/integration/per_celltype/{model}.{celltype}.celltype-diff-exp-genes.tsv",
+                caption="../report/celltype_all_markers.rst",
                 category=" Per celltype differential expression ",
                 subcategory="Differential expression tables",
                 labels={
@@ -112,22 +115,16 @@ rule per_celltype_diffexp:
                 }, 
         ),
         top_10_markers=report("results/tables/seurat/integration/per_celltype/{model}.{celltype}.top-10-celltype-markers.tsv",
+                caption="../report/celltype_top_10_markers.rst",
                 category=" Per celltype differential expression ",
                 subcategory="Differential expression tables",
                 labels={
                    "model": "{model}", "celltype": "{celltype}", "table": "top 10 markers",
                 }, 
         
-        ),
-        heatmap=report("results/plots/seurat/integration/per_celltype/{model}.{celltype}.celltype-Heatmap-plot.pdf",
-                category=" Per celltype differential expression ",
-                subcategory="Per celltype heatmaps",
-                labels={
-                   "model": "{model}", "celltype": "{celltype}", "plot": "Heatmaps",
-                },         
-        
-        ),
+        ),       
         volcano_plot=report("results/plots/seurat/integration/per_celltype/volcano_plots/{model}.{celltype}.celltype-volcano_plot.pdf",
+                caption="../report/celltype_volcano_plot.rst",
                 category=" Per celltype differential expression ",
                 subcategory="Per celltype volcano plots",
                 labels={

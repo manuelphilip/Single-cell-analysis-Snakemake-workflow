@@ -153,7 +153,6 @@ def all_input(wildcards):
                 [
                 "results/tables/seurat/integration/per_celltype/{model}.{celltype}.celltype-diff-exp-genes.tsv",
                 "results/tables/seurat/integration/per_celltype/{model}.{celltype}.top-10-celltype-markers.tsv",
-                "results/plots/seurat/integration/per_celltype/{model}.{celltype}.celltype-Heatmap-plot.pdf",
                 "results/plots/seurat/integration/per_celltype/volcano_plots/{model}.{celltype}.celltype-volcano_plot.pdf",
                 ],
                 model=config["diffexp"]["models"],

@@ -29,7 +29,7 @@ write.csv(top10_markers,
 heatmap <-
   DoHeatmap(seurat_obj[[sample]], features = top10_markers$gene) + NoLegend()
 
-pdf(file = snakemake@output[["heatmap"]])
+pdf(file = snakemake@output[["heatmap"]], height = 20, width = 30)
 heatmap
 dev.off()
 
