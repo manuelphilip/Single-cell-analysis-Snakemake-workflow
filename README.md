@@ -14,10 +14,10 @@ The usage of this workflow is described in the [Snakemake Workflow Catalog](http
 If you use this workflow in a paper, don't forget to give credits to the authors by citing the URL of this (original) <Single-cell-analysis-Snakemake-workflow>sitory and its DOI (see above).
 
 # Description
- A Snakemake workflow designed to analyse single cell data from cellranger count output. The workflow expects the cellranger count output which contains per sample bc_matrix (raw and filtered) under the `~/sample_name/outs` folder. For more information please refer [![cellranger ouput](https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/outputs/cr-outputs-gex-overview)]
+ A Snakemake workflow designed to analyse single cell data from cellranger count output. The workflow expects the cellranger count output which contains per sample bc_matrix (raw and filtered) under the `~/sample_name/outs` folder. For more information please refer [cellranger ouput](https://www.10xgenomics.com/support/software/cell-ranger/latest/analysis/outputs/cr-outputs-gex-overview)
  
 The general steps are as follows:
-All the steps are carried out using [![Seurat]](https://satijalab.org/seurat/articles/get_started_v5_new>)
+All the steps are carried out using [Seurat](https://satijalab.org/seurat/articles/get_started_v5_new>)
  * Preprocessing 
  * Clustering and dimensional reduction
  * Marker identification 
@@ -25,5 +25,5 @@ All the steps are carried out using [![Seurat]](https://satijalab.org/seurat/art
  * Integrative analysis
  * Default differential expression tests across models 
  * Differential expression across samples within same celltypes
- * Gene Ontology analysis using clusterProfiler [![clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)]
+ * Gene Ontology analysis using clusterProfiler [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)
  * Pathway enrichment analysis using clusterProfiler
