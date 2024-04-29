@@ -1,0 +1,2 @@
+**Heatmap**
+A Heatmap that shows the expression for given cells and features per model. Here plotting the top 20 markers (or all markers if less than 20) for each cluster. More information can be found here `Seurat tutorial <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_

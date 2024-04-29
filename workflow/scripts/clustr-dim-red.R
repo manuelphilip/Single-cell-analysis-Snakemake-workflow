@@ -7,7 +7,7 @@ library(dplyr)
 library(scCustomize)
 library(ggplot2)
 
-seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
+seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
 
 
 do_clustering <- function(obj) {
@@ -25,4 +25,4 @@ for (i in 1:length(seurat_obj)) {
   seurat_obj[[i]] <- do_clustering(seurat_obj[[i]])
 }
 
-saveRDS(seurat_obj, file = snakemake@output[["sleuth_object"]])
+saveRDS(seurat_obj, file = snakemake@output[["seurat_object"]])

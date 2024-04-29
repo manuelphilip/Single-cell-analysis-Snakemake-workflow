@@ -1,0 +1,2 @@
+**Elbow plot**
+A heuristic method that can be used to capture majority of true signal from the sample. An 'Elbow plot': a ranking of principle components based on the percentage of variance explained by each one (ElbowPlot() function). More information can be found here `Seurat tutorial <https://satijalab.org/seurat/articles/pbmc3k_tutorial>`_

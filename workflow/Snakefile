@@ -15,11 +15,12 @@ container: "docker://continuumio/miniconda3"
 
 
 include: "rules/common.smk"
-include: "rules/ref.smk"
 include: "rules/preprocessing.smk"
 include: "rules/clustering.smk"
 include: "rules/diff_exp_marker_iden.smk"
-
+include: "rules/seurat_integration.smk"
+include: "rules/per_sample_diffexp.smk"
+include: "rules/enrichment.smk"
 
 rule all:
     input:

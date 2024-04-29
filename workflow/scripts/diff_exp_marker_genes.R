@@ -9,7 +9,7 @@ library(ggplot2)
 library(devtools)
 install_github('immunogenomics/presto')
 
-seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
+seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
 
 genes_of_interest <- c(snakemake@params[["genes_of_interest"]])
 sample <- snakemake@wildcards$sample
@@ -29,7 +29,7 @@ write.csv(top10_markers,
 heatmap <-
   DoHeatmap(seurat_obj[[sample]], features = top10_markers$gene) + NoLegend()
 
-pdf(file = snakemake@output[["heatmap"]])
+pdf(file = snakemake@output[["heatmap"]], height = 20, width = 30)
 heatmap
 dev.off()
 

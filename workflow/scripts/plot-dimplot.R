@@ -7,7 +7,7 @@ library(dplyr)
 library(scCustomize)
 library(ggplot2)
 
-seurat_obj <- readRDS(snakemake@input[["sleuth_object"]])
+seurat_obj <- readRDS(snakemake@input[["seurat_object"]])
 
 
 dim_plot <- list()

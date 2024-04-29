@@ -1,0 +1,3 @@
+**Tree plot on cellular component (cc) biological process (bp), molecular function (mf)** performed with clusterProfiler.
+
+ A hierarchical cluster plot of enriched terms, cut into several subtrees (specify by the nCluster parameter (default is 5)) and labels subtrees using high-frequency words. This will reduce the complexity of the enriched result and improve user interpretation ability. (also see the clusterProfiler docs `clusterProfiler docs <https://yulab-smu.top/biomedical-knowledge-mining-book/enrichplot.html#tree-plot>`_)

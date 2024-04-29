@@ -1,0 +1,2 @@
+After preprocessing the samples are clustered and dimensionality reduction is performed using `Seurat <https://satijalab.org/seurat/articles/get_started_v5_new>`_.
+Integrated normalization and differential expression analysis were also conducted with `Seurat Integration <https://satijalab.org/seurat/articles/integration_introduction>`_ following standard procedure as outlined in the manual.

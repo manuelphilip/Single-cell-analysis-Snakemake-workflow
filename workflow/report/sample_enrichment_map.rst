@@ -1,0 +1,3 @@
+**Enrichment map on cellular component (cc) biological process (bp), molecular function (mf)** performed with clusterProfiler.
+
+ Enrichment map organizes enriched terms into a network with edges connecting overlapping gene sets. In this way, mutually overlapping gene sets are tend to cluster together, making it easy to identify functional module. (also see the clusterProfiler docs `clusterProfiler docs <https://yulab-smu.top/biomedical-knowledge-mining-book/enrichplot.html#enrichment-map>`_)

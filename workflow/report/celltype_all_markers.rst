@@ -1,0 +1,3 @@
+**Differentially expressed features (cluster biomarkers) table**
+The table displays the markers that define clusters based on differential expression (DE) per model. By default, it shows both positive and negative markers of a single cluster that is specified in ident.1 (pct.1). The table is grouped by cell type and per model that is defined in the config.yaml file. The `base_level` is defined in the config.yaml file under the `diffexp` section, and pct.2 is the comparison variable. Here, pct refers to the percentage of cells expressed. For more information, please refer to the provided link. `Seurat de_vignette <https://satijalab.org/seurat/articles/de_vignette>`_.
+

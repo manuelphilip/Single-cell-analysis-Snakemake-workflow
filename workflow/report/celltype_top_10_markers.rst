@@ -1,0 +1,2 @@
+**Top 10 Positive features (cluster biomarkers) table**
+Table contains top 10 markers that define clusters via differential expression (DE) per model. By default, it shows positive of a single cluster (specified in ident.1 (pct.1)), here grouped by celltype and per model defined in the config.yaml file. pct1-the `base_level` defined in the config.yaml file under the section `diffexp` pct.2 is the comparison variable. pct-(percentage of cells expressed). More information can be found here `Seurat de_vignette <https://satijalab.org/seurat/articles/de_vignette>`_.
